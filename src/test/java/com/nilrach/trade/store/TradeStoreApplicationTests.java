@@ -1,10 +1,10 @@
-package com.nilrach.springbootpractice;
+package com.nilrach.trade.store;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBootPracticeApplicationTests {
+class TradeStoreApplicationTests {
 
 	@Test
 	void contextLoads() {
