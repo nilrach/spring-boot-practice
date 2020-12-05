@@ -4,11 +4,14 @@ package com.nilrach.trade.store.api.v1.model;
 import com.nilrach.trade.store.entity.TradeEntity;
 
 public class Trade {
-    private String tradeId;
+    private final String tradeId;
+
+    public Trade(String tradeId) {
+        this.tradeId = tradeId;
+    }
 
     public static Trade convert(TradeEntity tradeEntity) {
-        Trade trade = new Trade();
-        trade.tradeId = tradeEntity.getTradeId();
+        Trade trade = new Trade(tradeEntity.getTradeId());
         return trade;
     }
 
@@ -16,7 +19,4 @@ public class Trade {
         return tradeId;
     }
 
-    public void setTradeId(String tradeId) {
-        this.tradeId = tradeId;
-    }
 }

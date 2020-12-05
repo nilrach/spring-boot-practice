@@ -1,5 +1,6 @@
 package com.nilrach.trade.store.api.v1.controller;
 
+import com.nilrach.trade.store.entity.TradeEntity;
 import com.nilrach.trade.store.service.TradeStoreService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Arrays;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -26,8 +30,23 @@ public class TradeControllerTests {
 
     @Test
     public void shouldBeAbleToGetTrades() throws Exception {
+        when(tradeStoreService.getAllTrades()).thenReturn(Arrays.asList(getValidTestTrade()));
         mvc.perform(MockMvcRequestBuilders
                 .get("/api/v1/trades"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldGiveNotFoundStatusWhenNoTrades() throws Exception {
+        when(tradeStoreService.getAllTrades()).thenReturn(null);
+        mvc.perform(MockMvcRequestBuilders
+                .get("/api/v1/trades"))
+                .andExpect(status().isNotFound());
+    }
+
+    private TradeEntity getValidTestTrade() {
+        TradeEntity tradeEntity = new TradeEntity();
+        tradeEntity.setTradeId("T11");
+        return tradeEntity;
     }
 }

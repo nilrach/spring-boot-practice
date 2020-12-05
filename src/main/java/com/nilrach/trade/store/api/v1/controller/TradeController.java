@@ -32,7 +32,11 @@ public class TradeController {
     public ResponseEntity<List<Trade>> getAllTrades() {
         LOGGER.info("Received request to get all trades.");
         List<TradeEntity> allTrades = tradeStoreService.getAllTrades();
-        return new ResponseEntity<List<Trade>>(allTrades.stream().map(Trade::convert).collect(Collectors.toList()),
-                HttpStatus.OK);
+        if (allTrades != null && !allTrades.isEmpty()) {
+            return new ResponseEntity<List<Trade>>(allTrades.stream().map(Trade::convert).collect(Collectors.toList()),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
