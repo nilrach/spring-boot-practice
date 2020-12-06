@@ -1,7 +1,6 @@
 package com.nilrach.trade.store.api.v1.controller;
 
-import com.nilrach.trade.store.api.v1.model.Trade;
-import com.nilrach.trade.store.entity.TradeEntity;
+import com.nilrach.trade.store.model.Trade;
 import com.nilrach.trade.store.service.TradeStoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -31,9 +29,9 @@ public class TradeController {
     @GetMapping(path = "/trades", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Trade>> getAllTrades() {
         LOGGER.info("Received request to get all trades.");
-        List<TradeEntity> allTrades = tradeStoreService.getAllTrades();
+        List<Trade> allTrades = tradeStoreService.getAllTrades();
         if (allTrades != null && !allTrades.isEmpty()) {
-            return new ResponseEntity<List<Trade>>(allTrades.stream().map(Trade::convert).collect(Collectors.toList()),
+            return new ResponseEntity<List<Trade>>(allTrades,
                     HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

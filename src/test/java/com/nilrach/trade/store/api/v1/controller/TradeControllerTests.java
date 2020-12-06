@@ -1,6 +1,7 @@
 package com.nilrach.trade.store.api.v1.controller;
 
-import com.nilrach.trade.store.entity.TradeEntity;
+import com.nilrach.trade.store.model.Trade;
+import com.nilrach.trade.store.model.TradeBuilder;
 import com.nilrach.trade.store.service.TradeStoreService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,9 +45,8 @@ public class TradeControllerTests {
                 .andExpect(status().isNotFound());
     }
 
-    private TradeEntity getValidTestTrade() {
-        TradeEntity tradeEntity = new TradeEntity();
-        tradeEntity.setTradeId("T11");
-        return tradeEntity;
+    private Trade getValidTestTrade() {
+        Trade trade = new TradeBuilder().tradeId("T11").build();
+        return trade;
     }
 }

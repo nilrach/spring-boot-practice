@@ -1,7 +1,8 @@
 package com.nilrach.trade.store.service;
 
-import com.nilrach.trade.store.api.v1.model.Trade;
 import com.nilrach.trade.store.entity.TradeEntity;
+import com.nilrach.trade.store.model.Trade;
+import com.nilrach.trade.store.model.TradeBuilder;
 import com.nilrach.trade.store.repository.TradeRepository;
 import com.nilrach.trade.store.validaor.TradeValidator;
 import org.slf4j.Logger;
@@ -25,14 +26,14 @@ public class TradeStoreService {
         this.tradeValidator = tradeValidator;
     }
 
-    public List<TradeEntity> getAllTrades() {
-        List<TradeEntity> tradeEntities = new ArrayList<>();
+    public List<Trade> getAllTrades() {
+        List<Trade> trades = new ArrayList<>();
         LOGGER.info("Fetching all trade records.");
         Iterable<TradeEntity> fetchedTrades = tradeRepository.findAll();
         if (fetchedTrades != null) {
-            fetchedTrades.forEach(t -> tradeEntities.add(t));
+            fetchedTrades.forEach(t -> trades.add(new TradeBuilder(t).build()));
         }
-        return tradeEntities;
+        return trades;
     }
 
     public boolean addTrade(Trade trade) {

@@ -1,6 +1,8 @@
 package com.nilrach.trade.store.service;
 
-import com.nilrach.trade.store.api.v1.model.Trade;
+
+import com.nilrach.trade.store.model.Trade;
+import com.nilrach.trade.store.model.TradeBuilder;
 import com.nilrach.trade.store.repository.TradeRepository;
 import com.nilrach.trade.store.validaor.TradeValidator;
 import org.junit.jupiter.api.DisplayName;
@@ -8,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -36,7 +37,7 @@ class TradeStoreServiceTest {
 
     @Test
     public void shouldValidateTradeBeforeAdding() {
-        boolean isTradeAdded = tradeStoreService.addTrade(new Trade("1"));
+        boolean isTradeAdded = tradeStoreService.addTrade(new TradeBuilder().build());
         verify(tradeValidator, times(1)).validateTrade(any(Trade.class));
     }
 
