@@ -1,7 +1,9 @@
 package com.nilrach.trade.store.service;
 
+import com.nilrach.trade.store.api.v1.model.Trade;
 import com.nilrach.trade.store.entity.TradeEntity;
 import com.nilrach.trade.store.repository.TradeRepository;
+import com.nilrach.trade.store.validaor.TradeValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,12 @@ public class TradeStoreService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TradeStoreService.class);
 
     private final TradeRepository tradeRepository;
+    private final TradeValidator tradeValidator;
 
     @Autowired
-    public TradeStoreService(TradeRepository tradeRepository) {
+    public TradeStoreService(TradeRepository tradeRepository, TradeValidator tradeValidator) {
         this.tradeRepository = tradeRepository;
+        this.tradeValidator = tradeValidator;
     }
 
     public List<TradeEntity> getAllTrades() {
@@ -29,5 +33,9 @@ public class TradeStoreService {
             fetchedTrades.forEach(t -> tradeEntities.add(t));
         }
         return tradeEntities;
+    }
+
+    public boolean addTrade(Trade trade) {
+        return tradeValidator.validateTrade(trade);
     }
 }
