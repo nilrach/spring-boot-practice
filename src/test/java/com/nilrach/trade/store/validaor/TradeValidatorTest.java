@@ -36,6 +36,4 @@ class TradeValidatorTest {
             assertEquals(exceptionMessage, e.getMessage());
         }
     }
-
-
 }
