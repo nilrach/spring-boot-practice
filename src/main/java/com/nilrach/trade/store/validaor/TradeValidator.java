@@ -1,6 +1,7 @@
 package com.nilrach.trade.store.validaor;
 
 import com.nilrach.trade.store.model.Trade;
+import com.nilrach.trade.store.util.TradeStoreUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,15 @@ public class TradeValidator {
     public boolean validateTrade(Trade trade) {
         LOGGER.info("Validating trade.");
         checkMandatoryFields(trade);
-        return false;
+        checkMaturityDateExpiry(trade);
+        return true;
+    }
+
+    private void checkMaturityDateExpiry(Trade trade) {
+        if(TradeStoreUtil.today().after(trade.getMaturityDate())) {
+            throw new IllegalArgumentException(MATURITY_DATE_EXPIRED);
+        }
+
     }
 
     private void checkMandatoryFields(Trade trade) {

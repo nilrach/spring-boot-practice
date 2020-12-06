@@ -35,4 +35,34 @@ public class TradeBuilder {
         this.tradeId = tradeId;
         return this;
     }
+
+    public TradeBuilder version(String version) {
+        this.version = version;
+        return this;
+    }
+
+    public TradeBuilder counterPartyId(String counterPartyId) {
+        this.counterPartyId = counterPartyId;
+        return this;
+    }
+
+    public TradeBuilder bookId(String bookId) {
+        this.bookId = bookId;
+        return this;
+    }
+
+    public TradeBuilder maturityDate(Date maturityDate) {
+        this.maturityDate = maturityDate;
+        return this;
+    }
+
+    public TradeBuilder createdDate(Date createdDate) {
+        this.createdDate = createdDate;
+        return this;
+    }
+
+    public TradeBuilder isExpired(Boolean isExpired) {
+        this.isExpired = isExpired;
+        return this;
+    }
 }
